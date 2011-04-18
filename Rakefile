@@ -1,15 +1,10 @@
 require 'rubygems'
 require 'bundler'
-begin
-  Bundler.setup(:default, :development)
-  Bundler.require(:default, :development)
-rescue Bundler::BundlerError => e
-  $stderr.puts e.message
-  $stderr.puts "Run `bundle install` to install missing gems"
-  exit e.status_code
-end
 require 'rake'
-require 
+require 'cucumber'
+require 'cucumber/rake/task'
+
+Bundler.require(:default, :development) if defined?(Bundler)
 
 begin
   require 'jeweler'
@@ -20,8 +15,8 @@ begin
     gem.email = "thieso@gmail.com"
     gem.homepage = "http://github.com/betterplace/acts_as_account"
     gem.authors = ["Thies C. Arntzen, Norman Timmler, Matthias Frick, Phillip Oertel"]
-    gem.add_dependency 'activerecord'
-    gem.add_dependency 'actionpack'
+    gem.add_dependency 'active_record'
+    gem.add_dependency 'action_pack'
     gem.add_dependency 'database_cleaner'
   end
   Jeweler::GemcutterTasks.new
@@ -32,7 +27,6 @@ end
 namespace :features do
   desc "create test database out of db/schema.rb"
   task :create_database do
-    require 'rubygems'
     require 'active_record'
     access_data = YAML.load_file(File.dirname(__FILE__) + '/db/database.yml')['acts_as_account']
     conn = ActiveRecord::Base.establish_connection(Hash[access_data.select { |k, v| k != 'database'}]).connection

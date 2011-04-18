@@ -56,8 +56,8 @@ module ActsAsAccount
         account.reload.balance += posting.amount
         account.postings_count += 1
 
-        posting.save_without_validation
-        account.save_without_validation
+        posting.save(:validate => false)
+        account.save(:validate => false)
       end
   end
 end

@@ -57,9 +57,9 @@ module ActsAsAccount
         end
       end
       
-      def delete_account(number)
+      def delete_account(account_id)
         transaction do
-          account = find(number)
+          account = where(:id => account_id)
           raise ActiveRecord::ActiveRecordError, "Cannot be deleted" unless account.deleteable?
           
           account.holder.destroy if [ManuallyCreatedAccount, GlobalAccount].include?(account.holder.class)
@@ -75,10 +75,11 @@ module ActsAsAccount
         record = if attributes[:holder]
           attributes[:holder].account(attributes[:name])
         else
-          find(:first, :conditions => [
-            "holder_type = ? and holder_id = ? and name = ?",
-            attributes[:holder_type], attributes[:holder_id], attributes[:name]
-          ])
+          where(
+            :holder_type => attributes[:holder_type],
+            :holder_id => attributes[:holder_id],
+            :name => attributes[:name]
+          ).limit(1)
         end
         record || raise
       end

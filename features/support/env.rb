@@ -1,4 +1,5 @@
 require 'test/unit/assertions'
+require 'active_record'
 
 World(Test::Unit::Assertions)
 

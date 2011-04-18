@@ -7,9 +7,13 @@ module ActsAsAccount
     belongs_to :journal
     belongs_to :reference, :polymorphic => true
     
-    named_scope :soll,  :conditions => 'amount >= 0'
-    named_scope :haben, :conditions => 'amount < 0'
-    named_scope :start_date,  lambda{|date| {:conditions => ['DATE(valuta) >= ?', date]}}
-    named_scope :end_date,    lambda{|date| {:conditions => ['DATE(valuta) <= ?', date]}}
+    scope :debit,  :where => 'amount >= 0'
+    scope :credit, :where => 'amount < 0'
+    scope :start_date, lambda { |date|
+      where(['DATE(valuta) >= ?', date])
+    }
+    scope :end_date, lambda { |date|
+      where(['DATE(valuta) <= ?', date])
+    }
   end
 end
