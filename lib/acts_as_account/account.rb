@@ -1,6 +1,6 @@
 module ActsAsAccount
   class Account < ActiveRecord::Base
-    set_table_name :acts_as_account_accounts
+    self.table_name = "acts_as_account_accounts"
     
     belongs_to :holder, :polymorphic => true
     has_many :postings

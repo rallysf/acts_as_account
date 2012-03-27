@@ -1,6 +1,6 @@
 module ActsAsAccount
   class Journal < ActiveRecord::Base
-    set_table_name :acts_as_account_journals
+    self.table_name = "acts_as_account_journals"
     
     has_many :postings
     has_many :accounts, :through => :postings

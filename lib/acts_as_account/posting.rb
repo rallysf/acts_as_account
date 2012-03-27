@@ -1,6 +1,6 @@
 module ActsAsAccount
   class Posting < ActiveRecord::Base
-    set_table_name :acts_as_account_postings
+    self.table_name = "acts_as_account_postings"
     
     belongs_to :account
     belongs_to :other_account, :class_name => 'Account'

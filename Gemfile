@@ -3,7 +3,7 @@ source "http://rubygems.org"
 gem "activerecord"
 gem "actionpack"
 gem "bundler"
-gem 'mysql2'
+gem "mysql2"
 
 group :development, :test do
   gem "database_cleaner"
