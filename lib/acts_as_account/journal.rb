@@ -1,5 +1,7 @@
 module ActsAsAccount
   class Journal < ActiveRecord::Base
+    cattr_accessor :logger
+
     self.table_name = "acts_as_account_journals"
     
     has_many :postings
