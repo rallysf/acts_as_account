@@ -26,6 +26,7 @@ module ActsAsAccount
     end
 
     def transfer(amount, from_account, to_account, reference = nil, valuta = Time.now)
+      log_info("ActsAsAccount::Journal.transfer", reference)
       transaction do
         if (amount < 0) 
           # change order if amount is negative
@@ -42,7 +43,11 @@ module ActsAsAccount
         add_posting( amount,    to_account, from_account, reference, valuta)
       end
     end
-    
+
+    def log_info(message, reference)
+      logger.info "#{reference.uniqueness_token} #{message}" if logger && reference.class.name == "Donation"
+    end
+
     private
     
       def add_posting(amount, account, other_account, reference, valuta)
@@ -56,8 +61,10 @@ module ActsAsAccount
         account.reload.balance += posting.amount
         account.postings_count += 1
 
-        posting.save(:validate => false)
-        account.save(:validate => false)
+        posting_result = posting.save(:validate => false)
+        account_update_result = account.save(:validate => false)
+        log_info "#{amount} from #{account.holder.name} to #{other_account.holder.name}: posting_result = #{posting_result}, account_update_result = #{account_update_result}", reference
+        account_update_result
       end
   end
 end
