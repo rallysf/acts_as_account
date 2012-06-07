@@ -1,6 +1,6 @@
 module ActsAsAccount
   class Journal < ActiveRecord::Base
-    cattr_accessor :logger
+    cattr_accessor :account_logger
 
     self.table_name = "acts_as_account_journals"
     
@@ -47,7 +47,7 @@ module ActsAsAccount
     end
 
     def log_info(message, reference)
-      logger.info "#{reference.uniqueness_token} #{message}" if logger && reference.class.name == "Donation"
+      account_logger.info "#{reference.uniqueness_token} #{message}" if account_logger && reference.class.name == "Donation"
     end
 
     private
