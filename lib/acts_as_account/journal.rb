@@ -60,8 +60,7 @@ module ActsAsAccount
           :reference => reference,
           :valuta => valuta)
 
-        account.reload.balance += posting.amount
-        account.postings_count += 1
+        account.class.update_counters account.id, :postings_count => 1, :balance => posting.amount
 
         posting_result = posting.save(:validate => false)
         account_update_result = account.save(:validate => false)
