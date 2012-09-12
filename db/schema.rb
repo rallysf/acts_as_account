@@ -11,6 +11,7 @@ ActiveRecord::Schema.define(:version => 1) do
     t.string "name", :null => false
 
     t.integer "balance", :default => 0
+    t.string "currency", :default => "USD"
     t.integer "postings_count", :default => 0
     t.datetime "last_valuta"
 
@@ -29,6 +30,7 @@ ActiveRecord::Schema.define(:version => 1) do
     t.integer "other_account_id", :null => false
     t.integer "journal_id", :null => false
     t.integer "amount", :null => false
+    t.string "currency", :default => "USD"
 
     t.integer "reference_id"
     t.string "reference_type"
