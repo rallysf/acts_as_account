@@ -9,3 +9,7 @@ Feature: Creating an Account
     Given User A has an Account named default
     And I create an Account named default for User A
     Then I get the original account
+
+  Scenario: Creating an account takes the holder's currency
+    Given I create a user B with currency EUR
+    Then User B has an Account named default with currency EUR

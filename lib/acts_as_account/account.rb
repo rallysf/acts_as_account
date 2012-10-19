@@ -6,6 +6,8 @@ module ActsAsAccount
     has_many :postings
     has_many :journals, :through => :postings
 
+    before_create :assume_currency
+
     # TODO: discuss with norman: 
     # validates_presence_of will force an ActiveRecord::find on the object
     # but we have to create accounts for deleted holder!
@@ -41,8 +43,8 @@ module ActsAsAccount
         end
       end
       
-      def for(name)
-        GlobalAccount.find_or_create_by_name(name.to_s).account
+      def for(name, currency)
+        GlobalAccount.find_or_create_by_name(name.to_s, :currency => currency).account
       end
 
       def create!(attributes = nil)
@@ -87,6 +89,11 @@ module ActsAsAccount
 
     def deleteable?
       postings.empty? && journals.empty?
+    end
+
+    private
+    def assume_currency
+      self.currency = holder.currency
     end
   end
 end

@@ -8,8 +8,12 @@ Given /^I create a user (\w+)$/ do |name|
   User.create!(:name => name)
 end
 
-Given /^I create a global ([_\w]+) account$/ do |name|
-  Account.for(name)
+Given /^I create a user (\w+) with currency (\w+)$/ do |name, currency|
+  User.create!(:name => name, :currency => currency)
+end
+
+Given /^I create a global ([_\w]+) account with currency (\w+)$/ do |name, currency|
+  Account.for(name, currency)
 end
 
 Then /^an account for user (\w+) exists$/ do |name|
@@ -41,8 +45,12 @@ Then /^(\w+)'s account balance is (-?\d+)$/ do |name, balance|
   assert_equal balance.to_i, User.find_by_name(name).account.balance
 end
 
+Then /^the global (\w+) account has currency (\w+)$/ do |name, currency|
+  assert_equal currency, GlobalAccount.find_by_name(name).account.currency
+end
+
 Then /^the global (\w+) account balance is (-?\d+)$/ do |name, balance|
-  assert_equal balance.to_i, Account.for(name).balance
+  assert_equal balance.to_i, GlobalAccount.find_by_name(name).account.balance
 end
 
 When /^I transfer (-?\d+) from (\w+)'s account to (\w+)'s account$/ do |amount, from, to|
@@ -52,8 +60,8 @@ When /^I transfer (-?\d+) from (\w+)'s account to (\w+)'s account$/ do |amount, 
 end
 
 When /^I transfer (\d+) from global (\w+) account to global (\w+) account$/ do |amount, from, to|
-  from_account = Account.for(from)
-  to_account = Account.for(to)
+  from_account = GlobalAccount.find_by_name(from).account
+  to_account = GlobalAccount.find_by_name(to).account
   Journal.current.transfer(amount.to_i, from_account, to_account, @reference, @valuta)
 end
 
@@ -84,6 +92,12 @@ end
 Then /^User (\w+) has an Account named (\w+)$/ do |user_name, account_name|
   @account = User.find_by_name(user_name).account
   assert_equal account_name, @account.name
+end
+
+Then /^User (\w+) has an Account named (\w+) with currency (\w+)$/ do |user_name, account_name, currency|
+  @account = User.find_by_name(user_name).account
+  assert_equal account_name, @account.name
+  assert_equal currency, @account.currency
 end
 
 Given /^I create an Account named (\w+) for User (\w+)$/ do |account_name, user_name|

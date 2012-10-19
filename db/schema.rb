@@ -51,10 +51,12 @@ ActiveRecord::Schema.define(:version => 1) do
 
   create_table "acts_as_account_global_accounts", :force => true do |t|
     t.string "name", :null => false
+    t.string "currency", :default => "USD"
   end
 
   create_table "users", :force => true do |t|
     t.string "name", :null => false
+    t.string "currency", :default => "USD"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

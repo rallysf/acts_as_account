@@ -25,9 +25,13 @@ Feature: Transfer
     And Norman's account balance is -30
     And the order of the postings is correct
 
+  Scenario: I create a new global account
+    Given I create a global wirecard account with currency EUR
+    Then the global wirecard account has currency EUR
+
   Scenario: I transfer money between global accounts
-    Given I create a global wirecard account
-    Given I create a global anonymous_donation account
+    Given I create a global wirecard account with currency EUR
+    Given I create a global anonymous_donation account with currency EUR
     When I transfer 30 from global wirecard account to global anonymous_donation account
     Then the global wirecard account balance is -30
     And the global anonymous_donation account balance is 30
