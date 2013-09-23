@@ -11,8 +11,8 @@ module ActsAsAccount
     validate :same_currency
     validates :currency, :presence => true
     
-    scope :debit,  :where => 'amount >= 0'
-    scope :credit, :where => 'amount < 0'
+    scope :debit, -> { where("amount >= 0") }
+    scope :credit, -> { where("amount < 0") }
     scope :start_date, lambda { |date|
       where(['DATE(valuta) >= ?', date])
     }
