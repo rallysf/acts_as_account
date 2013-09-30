@@ -44,7 +44,7 @@ module ActsAsAccount
       end
       
       def for(name, currency)
-        GlobalAccount.find_or_create_by_name(name.to_s, :currency => currency).account
+        GlobalAccount.find_or_create_by(name: name.to_s, currency: currency).account
       end
 
       def create!(attributes = nil)
