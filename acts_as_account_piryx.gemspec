@@ -55,8 +55,8 @@ Gem::Specification.new do |s|
       s.add_development_dependency(%q<rspec>, [">= 0"])
       s.add_development_dependency(%q<jeweler>, [">= 0"])
       s.add_development_dependency(%q<cucumber>, [">= 0"])
-      s.add_runtime_dependency(%q<activerecord>, [">= 0"])
-      s.add_runtime_dependency(%q<actionpack>, [">= 0"])
+      # s.add_runtime_dependency(%q<activerecord>, [">= 0"])
+      # s.add_runtime_dependency(%q<actionpack>, [">= 0"])
     else
       s.add_dependency(%q<activerecord>, [">= 0"])
       s.add_dependency(%q<actionpack>, [">= 0"])
@@ -66,8 +66,8 @@ Gem::Specification.new do |s|
       s.add_dependency(%q<rspec>, [">= 0"])
       s.add_dependency(%q<jeweler>, [">= 0"])
       s.add_dependency(%q<cucumber>, [">= 0"])
-      s.add_dependency(%q<activerecord>, [">= 0"])
-      s.add_dependency(%q<actionpack>, [">= 0"])
+      # s.add_dependency(%q<activerecord>, [">= 0"])
+      # s.add_dependency(%q<actionpack>, [">= 0"])
     end
   else
     s.add_dependency(%q<activerecord>, [">= 0"])
@@ -78,8 +78,8 @@ Gem::Specification.new do |s|
     s.add_dependency(%q<rspec>, [">= 0"])
     s.add_dependency(%q<jeweler>, [">= 0"])
     s.add_dependency(%q<cucumber>, [">= 0"])
-    s.add_dependency(%q<activerecord>, [">= 0"])
-    s.add_dependency(%q<actionpack>, [">= 0"])
+    # s.add_dependency(%q<activerecord>, [">= 0"])
+    # s.add_dependency(%q<actionpack>, [">= 0"])
   end
 end
 
